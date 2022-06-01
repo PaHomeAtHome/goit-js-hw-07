@@ -45,12 +45,19 @@ gallery.onclick = (event) => {
     originalImg.alt = event.target.alt;
     div.append(originalImg);
     
-    const instance = basicLightbox.create(div);
+    const instance = basicLightbox.create(div,
+        {
+            onShow: (instance) => { gallery.addEventListener(`keydown`, onEscapePress) },
+            onClose: (instance) => { gallery.removeEventListener(`keydown`, onEscapePress) }
+        });
 
     instance.show()
-
     
+    function onEscapePress(event) {
+        if (event.code === "Escape") { instance.close() }
+    }
 };
+
 
 
 
