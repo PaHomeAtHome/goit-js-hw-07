@@ -7,7 +7,9 @@ function createGallery(gallery) {
     
     const array = [];
     
-    gallery.map(({ preview, original, description }) => {const item = document.createElement(`div`);
+    gallery.map(({ preview, original, description }) => {
+        
+    const item = document.createElement(`div`);
     item.classList.add(`gallery__item`);
     const link = document.createElement(`a`);
 
@@ -26,11 +28,34 @@ function createGallery(gallery) {
     })
 
     return array;
-    
 }
     
 const galleryMarkup = createGallery(galleryItems);
 
 gallery.append(...galleryMarkup);
 
-console.log(gallery);
+gallery.onclick = (event) => {
+    
+    event.preventDefault();
+    
+    const div = document.createElement(`div`);
+    
+    const originalImg = document.createElement(`img`);
+    originalImg.src = event.target.dataset.source;
+    originalImg.alt = event.target.alt;
+    div.append(originalImg);
+    
+    const instance = basicLightbox.create(div);
+
+    instance.show()
+
+    
+};
+
+
+
+
+   
+
+
+
